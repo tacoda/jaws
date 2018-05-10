@@ -4,3 +4,5 @@ version = "0.1.0"
 authors = ["Ian Johnson <ianj@menudrive.com>"]
 
 [dependencies]
+rusoto_core = "0.32.0"
+rusoto_dynamodb = "0.32.0"
