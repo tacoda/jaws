@@ -1,0 +1,6 @@
+[package]
+name = "jaws"
+version = "0.1.0"
+authors = ["Ian Johnson <ianj@menudrive.com>"]
+
+[dependencies]
