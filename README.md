@@ -26,5 +26,6 @@ jaws dynamo ls --help
 
 - [x] CLI
 - [x] AWS SDK
+- [ ] Organize codebase
 - [ ] Complete CLI functionality
 - [ ] Add tasks
