@@ -1,8 +1,9 @@
 extern crate clap;
-extern crate jaws;
+
+mod jaws;
 
 use clap::{App, SubCommand};
-use jaws::ls_dynamo;
+use jaws::dynamo;
 
 fn main() {
     let matches = App::new("jaws")
@@ -21,7 +22,7 @@ fn main() {
 
     if let Some(supercommand) = matches.subcommand_matches("dynamo") {
         if let Some(subcommand) = supercommand.subcommand_matches("ls") {
-            ls_dynamo();
+            dynamo::ls();
         }
     }
 
