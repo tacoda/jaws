@@ -1,8 +1,5 @@
-extern crate rusoto_core;
-extern crate rusoto_dynamodb;
-
-use self::rusoto_core::Region;
-use self::rusoto_dynamodb::{DynamoDb, DynamoDbClient, ListTablesInput};
+use rusoto_core::Region;
+use rusoto_dynamodb::{DynamoDb, DynamoDbClient, ListTablesInput};
 
 pub fn ls() {
         let client = DynamoDbClient::simple(Region::UsEast1);

@@ -1,5 +1,7 @@
 extern crate clap;
 
+extern crate rusoto_core;
+extern crate rusoto_dynamodb;
 mod jaws;
 
 use clap::{App, SubCommand};
