@@ -12,12 +12,15 @@ use jaws::dynamo;
 #[structopt(name = "jaws", about = "AWS management tool and task runner")]
 enum Jaws {
     #[structopt(name = "dynamodb")]
+    /// DynamoDB services
     DynamoDb {
         #[structopt(short = "l", long = "list")]
+        /// List DynamoDB Tables
         list: bool,
 
         #[structopt(short = "c", long = "create")]
-        create: Option<String>,
+        /// Create a DynamoDb Table named <name>
+        name: Option<String>,
     },
     // #[structopt(name = "fetch")]
     // Fetch {
@@ -40,9 +43,9 @@ fn main() {
     let jaws = Jaws::from_args();
 
     match jaws {
-        Jaws::DynamoDb { list, create } => {
+        Jaws::DynamoDb { list, name } => {
             if list { dynamo::list() }
-            if let Some(name) = create { dynamo::create(name) }
+            if let Some(name) = name { dynamo::create(name) }
         }
     }
 }
