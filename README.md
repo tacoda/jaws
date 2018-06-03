@@ -24,14 +24,4 @@ jaws dynamodb --help
 
 Subcommands
 
-- [ ] dynamodb _IN PROGRESS_
-- [ ] s3
-- [ ] ec2
-- [ ] lambda
-- [ ] iam
-
-## TODO
-
-- [ ] Complete CLI functionality _IN PROGRESS_
-- [ ] Configuration
-- [ ] Add tasks
+- `dynamodb`
