@@ -6,7 +6,7 @@ mod jaws;
 
 // use std::path::PathBuf;
 use structopt::StructOpt;
-use jaws::dynamo;
+use jaws as jawslib;
 
 #[derive(StructOpt)]
 #[structopt(name = "jaws", about = "AWS management tool and task runner")]
@@ -44,8 +44,8 @@ fn main() {
 
     match jaws {
         Jaws::DynamoDb { list, name } => {
-            if list { dynamo::list() }
-            if let Some(name) = name { dynamo::create(name) }
+            if list { jawslib::dynamodb::list() }
+            if let Some(name) = name { jawslib::dynamodb::create(name) }
         }
     }
 }
