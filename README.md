@@ -10,22 +10,28 @@ Help
 jaws --help
 ```
 
-Services
+Usage
 
 ```
-jaws dynamo --help
+jaws <SUBCOMMAND>
 ```
 
-Commands
+Help with Subcommands
 
 ```
-jaws dynamo ls --help
+jaws dynamodb --help
 ```
+
+Subcommands
+
+- [ ] dynamodb _IN PROGRESS_
+- [ ] s3
+- [ ] ec2
+- [ ] lambda
+- [ ] iam
 
 ## TODO
 
-- [x] CLI
-- [x] AWS SDK
-- [ ] Organize codebase
-- [ ] Complete CLI functionality
+- [ ] Complete CLI functionality _IN PROGRESS_
+- [ ] Configuration
 - [ ] Add tasks
