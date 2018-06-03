@@ -24,22 +24,23 @@ pub fn list() {
         }
 }
 
-pub fn create() {
-    // let client = DynamoDbClient::simple(Region::UsEast1);
-    // let create_table_input: CreateTableInput = Default::default();
-    //
-    // match client.create_table(&create_table_input).sync() {
-    //     Ok(output) => {
-    //         match output.table_description {
-    //             Some(table_description) => {
-    //                 println!("Table description:");
-    //                 println!("{:?}", table_description);
-    //             },
-    //             None => println!("Table not created!"),
-    //         }
-    //     },
-    //     Err(error) => {
-    //         println!("Error: {:?}", error);
-    //     },
-    // }
+pub fn create(name: String) {
+    let client = DynamoDbClient::simple(Region::UsEast1);
+    let mut create_table_input: CreateTableInput = Default::default();
+    create_table_input.table_name = name;
+    
+    match client.create_table(&create_table_input).sync() {
+        Ok(output) => {
+            match output.table_description {
+                Some(table_description) => {
+                    println!("Table description:");
+                    println!("{:?}", table_description);
+                },
+                None => println!("Table not created!"),
+            }
+        },
+        Err(error) => {
+            println!("Error: {:?}", error);
+        },
+    }
 }

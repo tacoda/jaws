@@ -15,6 +15,9 @@ enum Jaws {
     DynamoDb {
         #[structopt(short = "l", long = "list")]
         list: bool,
+
+        #[structopt(short = "c", long = "create")]
+        create: Option<String>,
     },
     // #[structopt(name = "fetch")]
     // Fetch {
@@ -37,6 +40,9 @@ fn main() {
     let jaws = Jaws::from_args();
 
     match jaws {
-        Jaws::DynamoDb { list } => if list { dynamo::list() }
+        Jaws::DynamoDb { list, create } => {
+            if list { dynamo::list() }
+            if let Some(name) = create { dynamo::create(name) }
+        }
     }
 }
