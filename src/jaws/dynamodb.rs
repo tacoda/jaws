@@ -66,3 +66,27 @@ pub fn create(name: String) {
         },
     }
 }
+
+pub fn delete(name: String) {
+    let client = DynamoDbClient::simple(Region::UsEast1);
+    let delete_table_input: DeleteTableInput = DeleteTableInput {
+        table_name: name,
+    };
+
+    match client.delete_table(&delete_table_input).sync() {
+        Ok(output) => {
+            match output.table_description {
+                Some(table_description) => {
+                    match table_description.table_name {
+                        Some(name) => println!("Deleted table {}!", name),
+                        None => println!("No table name!"),
+                    }
+                },
+                None => println!("Table not deleted!"),
+            }
+        },
+        Err(error) => {
+            println!("Error: {:?}", error);
+        },
+    }
+}

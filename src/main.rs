@@ -19,8 +19,12 @@ enum Jaws {
         list: bool,
 
         #[structopt(short = "c", long = "create")]
-        /// Create a DynamoDb Table named <name>
-        name: Option<String>,
+        /// Create a DynamoDb Table
+        create_table: Option<String>,
+
+        #[structopt(short = "d", long = "delete")]
+        /// Delete a DynamoDb Table
+        delete_table: Option<String>,
     },
     // #[structopt(name = "fetch")]
     // Fetch {
@@ -43,9 +47,10 @@ fn main() {
     let jaws = Jaws::from_args();
 
     match jaws {
-        Jaws::DynamoDb { list, name } => {
+        Jaws::DynamoDb { list, create_table, delete_table } => {
             if list { jawslib::dynamodb::list() }
-            if let Some(name) = name { jawslib::dynamodb::create(name) }
+            if let Some(name) = create_table { jawslib::dynamodb::create(name) }
+            if let Some(name) = delete_table { jawslib::dynamodb::delete(name) }
         }
     }
 }
