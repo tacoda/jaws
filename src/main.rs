@@ -95,7 +95,7 @@ fn main() {
                 DynamoDbSubCommand::ListTables => { jawslib::dynamodb::list_tables() },
                 DynamoDbSubCommand::CreateTable { name } => { jawslib::dynamodb::create_table(name) },
                 DynamoDbSubCommand::DeleteTable { name } => { jawslib::dynamodb::delete_table(name) },
-                DynamoDbSubCommand::PutItem { name, table_name } => { unimplemented!() },
+                DynamoDbSubCommand::PutItem { name, table_name } => { jawslib::dynamodb::put_item(name, table_name ) },
                 DynamoDbSubCommand::GetItem { name, table_name } => { unimplemented!() },
                 DynamoDbSubCommand::DeleteItem { name, table_name } => { unimplemented!() },
             }
