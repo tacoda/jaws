@@ -1,7 +1,7 @@
 use rusoto_core::Region;
 use rusoto_dynamodb::*;
 
-pub fn list() {
+pub fn list_tables() {
         let client = DynamoDbClient::simple(Region::UsEast1);
         let list_tables_input: ListTablesInput = Default::default();
 
@@ -24,7 +24,7 @@ pub fn list() {
         }
 }
 
-pub fn create(name: String) {
+pub fn create_table(name: String) {
     let client = DynamoDbClient::simple(Region::UsEast1);
     let create_table_input: CreateTableInput = CreateTableInput {
         attribute_definitions: vec![AttributeDefinition {
@@ -67,7 +67,7 @@ pub fn create(name: String) {
     }
 }
 
-pub fn delete(name: String) {
+pub fn delete_table(name: String) {
     let client = DynamoDbClient::simple(Region::UsEast1);
     let delete_table_input: DeleteTableInput = DeleteTableInput {
         table_name: name,

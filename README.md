@@ -16,12 +16,18 @@ Usage
 jaws <SUBCOMMAND>
 ```
 
-Help with Subcommands
+Help with Services
 
 ```
 jaws dynamodb --help
 ```
 
-Subcommands
+Help with Commands
+
+```
+jaws dynamodb create-table --help
+```
+
+Services and Commands
 
 - `dynamodb`

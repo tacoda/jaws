@@ -14,17 +14,9 @@ enum Jaws {
     #[structopt(name = "dynamodb")]
     /// DynamoDB services
     DynamoDb {
-        #[structopt(short = "l", long = "list")]
-        /// List DynamoDB Tables
-        list: bool,
-
-        #[structopt(short = "c", long = "create")]
-        /// Create a DynamoDb Table
-        create_table: Option<String>,
-
-        #[structopt(short = "d", long = "delete")]
-        /// Delete a DynamoDb Table
-        delete_table: Option<String>,
+        #[structopt(subcommand)]
+        // Subcommand
+        cmd: DynamoDbSubCommand,
     },
     // #[structopt(name = "fetch")]
     // Fetch {
@@ -43,14 +35,70 @@ enum Jaws {
     // }
 }
 
+#[derive(StructOpt)]
+enum DynamoDbSubCommand {
+    #[structopt(name = "list-tables")]
+    /// List DynamoDb tables
+    ListTables,
+    #[structopt(name = "create-table")]
+    /// Create a DynamoDb table
+    CreateTable {
+        #[structopt(short = "n", long = "name")]
+        /// Name of the DynamoDb table to create
+        name: String
+    },
+    #[structopt(name = "delete-table")]
+    /// Delete a DynamoDb table
+    DeleteTable {
+        #[structopt(short = "n", long = "name")]
+        /// Name of the DynamoDb table to delete
+        name: String
+    },
+    #[structopt(name = "put-item")]
+    /// Put an item to a DynamoDb table
+    PutItem {
+        #[structopt(short = "n", long = "name")]
+        /// Name of the item to put into the DynamoDb table
+        name: String,
+        #[structopt(short = "t", long = "table-name")]
+        /// Name of the DynamoDb table to use
+        table_name: String,
+    },
+    #[structopt(name = "get-item")]
+    /// Get an item from a DynamoDb table
+    GetItem {
+        #[structopt(short = "n", long = "name")]
+        /// Name of the item to get from the DynamoDb table
+        name: String,
+        #[structopt(short = "t", long = "table-name")]
+        /// Name of the DynamoDb table to use
+        table_name: String,
+    },
+    #[structopt(name = "delete-item")]
+    /// Delete an item from a DynamoDb table
+    DeleteItem {
+        #[structopt(short = "n", long = "name")]
+        /// Name of the item to delete from the DynamoDb table
+        name: String,
+        #[structopt(short = "t", long = "table-name")]
+        /// Name of the DynamoDb table to use
+        table_name: String,
+    },
+}
+
 fn main() {
     let jaws = Jaws::from_args();
 
     match jaws {
-        Jaws::DynamoDb { list, create_table, delete_table } => {
-            if list { jawslib::dynamodb::list() }
-            if let Some(name) = create_table { jawslib::dynamodb::create(name) }
-            if let Some(name) = delete_table { jawslib::dynamodb::delete(name) }
+        Jaws::DynamoDb { cmd } => {
+            match cmd {
+                DynamoDbSubCommand::ListTables => { jawslib::dynamodb::list_tables() },
+                DynamoDbSubCommand::CreateTable { name } => { jawslib::dynamodb::create_table(name) },
+                DynamoDbSubCommand::DeleteTable { name } => { jawslib::dynamodb::delete_table(name) },
+                DynamoDbSubCommand::PutItem { name, table_name } => { unimplemented!() },
+                DynamoDbSubCommand::GetItem { name, table_name } => { unimplemented!() },
+                DynamoDbSubCommand::DeleteItem { name, table_name } => { unimplemented!() },
+            }
         }
     }
 }
