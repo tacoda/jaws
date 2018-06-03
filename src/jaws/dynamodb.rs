@@ -49,8 +49,14 @@ pub fn create(name: String) {
         Ok(output) => {
             match output.table_description {
                 Some(table_description) => {
-                    println!("Table description:");
-                    println!("{:?}", table_description);
+                    match table_description.table_name {
+                        Some(name) => println!("Created table {}!", name),
+                        None => println!("No table name!"),
+                    }
+                    match table_description.table_arn {
+                        Some(arn) => println!("ARN: {}", arn),
+                        None => println!("No ARN!"),
+                    }
                 },
                 None => println!("Table not created!"),
             }
