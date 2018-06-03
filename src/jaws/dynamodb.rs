@@ -9,7 +9,7 @@ pub fn list() {
             Ok(output) => {
                 match output.table_names {
                     Some(table_name_list) => {
-                        println!("Tables in database:");
+                        println!("DynamoDb Tables:");
 
                         for table_name in table_name_list {
                             println!("{}", table_name);
