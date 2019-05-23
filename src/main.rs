@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate structopt;
-extern crate rusoto_core;
-extern crate rusoto_dynamodb;
+
+
 mod jaws;
 
 // use std::path::PathBuf;
