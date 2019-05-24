@@ -11,4 +11,4 @@ deploy:
   bucket: tacoda-dist
   skip_cleanup: true
   local_dir: target/release
-  upload-dir: travis-builds
+  upload-dir: travis-builds/jaws
