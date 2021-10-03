@@ -19,24 +19,11 @@ jobs:
       - run:
           name: "Test"
           command: "cargo test"
-  document:
-    docker:
-      - image: circleci/rust:1.55
-    steps:
-      - checkout
-      - run:
-          name: "Document"
-          command: "cargo doc"
-      - store_artifacts:
-          path: target/doc
 
 workflows:
   build-workflow:
     jobs:
       - test
       - build:
-          requires:
-            - test
-      - document:
           requires:
             - test
