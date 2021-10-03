@@ -1,12 +1,14 @@
 [package]
 name = "jaws"
 version = "0.1.0"
-authors = ["Ian Johnson <tacoda@pm.me"]
+authors = ["Ian Johnson <tacoda@hey.com>"]
 edition = "2018"
 
 [dependencies]
-structopt = "0.2.10"
-rusoto_core = "0.32.0"
-rusoto_dynamodb = "0.32.0"
-failure = "0.1.5"
-exitfailure = "0.5.1"
+structopt = "0.3.23"
+rusoto_core = "0.47.0"
+rusoto_dynamodb = "0.47.0"
+futures = "0.3"
+tokio = "1.12.0"
+# failure = "0.1.5"
+# exitfailure = "0.5.1"

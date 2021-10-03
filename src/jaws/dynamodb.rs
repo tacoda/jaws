@@ -1,12 +1,16 @@
+// #![cfg(feature = "dynamodb")]
+
+// // extern crate rusoto_core;
+// // extern crate rusoto_dynamodb;
+
 use rusoto_core::Region;
 use rusoto_dynamodb::*;
 use std::collections::HashMap;
 
-pub fn list_tables() {
-        let client = DynamoDbClient::simple(Region::UsEast1);
-        let list_tables_input: ListTablesInput = Default::default();
-
-        match client.list_tables(&list_tables_input).sync() {
+pub async fn list_tables() {
+        let client = DynamoDbClient::new(Region::UsEast1);
+        let request = ListTablesInput::default();
+        match client.list_tables(request).await {
             Ok(output) => {
                 match output.table_names {
                     Some(table_name_list) => {
@@ -25,28 +29,32 @@ pub fn list_tables() {
         }
 }
 
-pub fn create_table(name: String) {
-    let client = DynamoDbClient::simple(Region::UsEast1);
+pub async fn create_table(name: String) {
+    let client = DynamoDbClient::new(Region::UsEast1);
     let create_table_input: CreateTableInput = CreateTableInput {
         attribute_definitions: vec![AttributeDefinition {
             attribute_name: String::from("key"),
             attribute_type: String::from("S"),
         }],
+        billing_mode: None,
         global_secondary_indexes: None,
         key_schema: vec![KeySchemaElement {
             attribute_name: String::from("key"),
             key_type: String::from("HASH"),
         }],
         local_secondary_indexes: None,
-        provisioned_throughput: ProvisionedThroughput {
-            read_capacity_units: 4,
-            write_capacity_units: 4,
-        },
+        provisioned_throughput: None,
+        sse_specification: None,
+        // ProvisionedThroughput {
+        //     read_capacity_units: 4,
+        //     write_capacity_units: 4,
+        // },
         stream_specification: None,
         table_name: name,
+        tags: None
     };
 
-    match client.create_table(&create_table_input).sync() {
+    match client.create_table(create_table_input).await {
         Ok(output) => {
             match output.table_description {
                 Some(table_description) => {
@@ -68,13 +76,13 @@ pub fn create_table(name: String) {
     }
 }
 
-pub fn delete_table(name: String) {
-    let client = DynamoDbClient::simple(Region::UsEast1);
+pub async fn delete_table(name: String) {
+    let client = DynamoDbClient::new(Region::UsEast1);
     let delete_table_input: DeleteTableInput = DeleteTableInput {
         table_name: name,
     };
 
-    match client.delete_table(&delete_table_input).sync() {
+    match client.delete_table(delete_table_input).await {
         Ok(output) => {
             match output.table_description {
                 Some(table_description) => {
@@ -92,8 +100,8 @@ pub fn delete_table(name: String) {
     }
 }
 
-pub fn put_item(key: String, table_name: String) {
-    let client = DynamoDbClient::simple(Region::UsEast1);
+pub async fn put_item(key: String, table_name: String) {
+    let client = DynamoDbClient::new(Region::UsEast1);
     let mut item = HashMap::new();
     item.insert(key.clone(), AttributeValue {
         b: None,
@@ -120,7 +128,7 @@ pub fn put_item(key: String, table_name: String) {
         table_name: table_name,
     };
 
-    match client.put_item(&put_item_input).sync() {
+    match client.put_item(put_item_input).await {
         Ok(output) => {
             match output.attributes {
                 Some(attribute) => {

@@ -1,11 +1,8 @@
-#[macro_use]
-extern crate structopt;
-
-
 mod jaws;
 
 // use std::path::PathBuf;
 use structopt::StructOpt;
+use tokio;
 use crate::jaws as jawslib;
 
 #[derive(StructOpt)]
@@ -86,18 +83,20 @@ enum DynamoDbSubCommand {
     },
 }
 
-fn main() {
-    let jaws = Jaws::from_args();
+#[tokio::main]
+async fn main() {
+    let cli = Jaws::from_args();
 
-    match jaws {
+    match cli {
         Jaws::DynamoDb { cmd } => {
             match cmd {
-                DynamoDbSubCommand::ListTables => { jawslib::dynamodb::list_tables() },
-                DynamoDbSubCommand::CreateTable { name } => { jawslib::dynamodb::create_table(name) },
-                DynamoDbSubCommand::DeleteTable { name } => { jawslib::dynamodb::delete_table(name) },
-                DynamoDbSubCommand::PutItem { name, table_name } => { jawslib::dynamodb::put_item(name, table_name ) },
-                DynamoDbSubCommand::GetItem { name: _, table_name: _ } => { unimplemented!() },
-                DynamoDbSubCommand::DeleteItem { name: _, table_name: _ } => { unimplemented!() },
+                _ => { jawslib::dynamodb::list_tables().await },
+                // DynamoDbSubCommand::ListTables => { dynamodb::list_tables() },
+                // DynamoDbSubCommand::CreateTable { name } => { dynamodb::create_table(name) },
+                // DynamoDbSubCommand::DeleteTable { name } => { dynamodb::delete_table(name) },
+                // DynamoDbSubCommand::PutItem { name, table_name } => { dynamodb::put_item(name, table_name ) },
+                // DynamoDbSubCommand::GetItem { name: _, table_name: _ } => { unimplemented!() },
+                // DynamoDbSubCommand::DeleteItem { name: _, table_name: _ } => { unimplemented!() },
             }
         }
     }
