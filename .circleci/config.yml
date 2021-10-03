@@ -9,6 +9,8 @@ jobs:
       - run:
           name: "Compile"
           command: "cargo build --release"
+      - store_artifacts:
+          path: target/release
   test:
     docker:
       - image: circleci/rust:1.55
@@ -25,6 +27,8 @@ jobs:
       - run:
           name: "Document"
           command: "cargo doc"
+      - store_artifacts:
+          path: target/doc
 
 workflows:
   build-workflow:
@@ -33,7 +37,6 @@ workflows:
       - build:
           requires:
             - test
-          path: target/release
       - document:
           requires:
             - test
