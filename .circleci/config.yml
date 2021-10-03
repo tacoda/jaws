@@ -33,6 +33,7 @@ workflows:
       - build:
           requires:
             - test
+          path: target/release
       - document:
           requires:
             - test
