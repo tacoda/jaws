@@ -15,6 +15,13 @@ enum Jaws {
         // Subcommand
         cmd: DynamoDbSubCommand,
     },
+    #[structopt(name = "s3")]
+    /// S3 services
+    SThree {
+        #[structopt(subcommand)]
+        // Subcommand
+        cmd: S3SubCommand,
+    },
     // #[structopt(name = "fetch")]
     // Fetch {
     //     #[structopt(long = "dry-run")]
@@ -83,6 +90,13 @@ enum DynamoDbSubCommand {
     },
 }
 
+#[derive(StructOpt)]
+enum S3SubCommand {
+    #[structopt(name = "list-buckets")]
+    /// List S3 buckets
+    ListBuckets,
+}
+
 #[tokio::main]
 async fn main() {
     let cli = Jaws::from_args();
@@ -96,6 +110,11 @@ async fn main() {
                 DynamoDbSubCommand::PutItem { name, table_name } => { jawslib::dynamodb::put_item(name, table_name ).await },
                 DynamoDbSubCommand::GetItem { name: _, table_name: _ } => { unimplemented!() },
                 DynamoDbSubCommand::DeleteItem { name: _, table_name: _ } => { unimplemented!() },
+            }
+        }
+        Jaws::SThree { cmd } => {
+            match cmd {
+                S3SubCommand::ListBuckets => { jawslib::s3::list_buckets().await },
             }
         }
     }
