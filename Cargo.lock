@@ -469,6 +469,7 @@ dependencies = [
  "futures",
  "rusoto_core",
  "rusoto_dynamodb",
+ "rusoto_lambda",
  "rusoto_s3",
  "structopt",
  "tokio",
@@ -856,6 +857,21 @@ dependencies = [
  "futures",
  "rusoto_core",
  "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "rusoto_lambda"
+version = "0.47.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fdc31b04ba667093fc5beab21feb8977b623206081808e2f99831606a41c2b9"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "futures",
+ "rusoto_core",
+ "serde",
+ "serde_derive",
  "serde_json",
 ]
 

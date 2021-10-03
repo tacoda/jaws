@@ -22,21 +22,12 @@ enum Jaws {
         // Subcommand
         cmd: S3SubCommand,
     },
-    // #[structopt(name = "fetch")]
-    // Fetch {
-    //     #[structopt(long = "dry-run")]
-    //     dry_run: bool,
-    //     #[structopt(long = "all")]
-    //     all: bool,
-    //     repository: Option<String>
-    // },
-    // #[structopt(name = "commit")]
-    // Commit {
-    //     #[structopt(short = "m")]
-    //     message: Option<String>,
-    //     #[structopt(short = "a")]
-    //     all: bool
-    // }
+    /// Lambda services
+    Lambda {
+        #[structopt(subcommand)]
+        // Subcommand
+        cmd: LambdaSubCommand,
+    },
 }
 
 #[derive(StructOpt)]
@@ -97,6 +88,29 @@ enum S3SubCommand {
     ListBuckets,
 }
 
+#[derive(StructOpt)]
+enum LambdaSubCommand {
+    #[structopt(name = "list-functions")]
+    /// List Lambda functions
+    ListFunctions,
+}
+
+// #[structopt(name = "fetch")]
+// Fetch {
+//     #[structopt(long = "dry-run")]
+//     dry_run: bool,
+//     #[structopt(long = "all")]
+//     all: bool,
+//     repository: Option<String>
+// },
+// #[structopt(name = "commit")]
+// Commit {
+//     #[structopt(short = "m")]
+//     message: Option<String>,
+//     #[structopt(short = "a")]
+//     all: bool
+// }
+
 #[tokio::main]
 async fn main() {
     let cli = Jaws::from_args();
@@ -111,10 +125,15 @@ async fn main() {
                 DynamoDbSubCommand::GetItem { name: _, table_name: _ } => { unimplemented!() },
                 DynamoDbSubCommand::DeleteItem { name: _, table_name: _ } => { unimplemented!() },
             }
-        }
+        },
         Jaws::SThree { cmd } => {
             match cmd {
                 S3SubCommand::ListBuckets => { jawslib::s3::list_buckets().await },
+            }
+        },
+        Jaws::Lambda { cmd } => {
+            match cmd {
+                LambdaSubCommand::ListFunctions => { jawslib::lambda::list_functions().await },
             }
         }
     }
