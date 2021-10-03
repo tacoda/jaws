@@ -2,7 +2,7 @@
 
 > A tool to manage AWS resources and run tasks
 
-[![Build Status](https://travis-ci.org/tacoda/jaws.svg?branch=master)](https://travis-ci.org/tacoda/jaws)
+[![CircleCI](https://circleci.com/gh/tacoda/jaws/tree/main.svg?style=svg)](https://circleci.com/gh/tacoda/jaws/tree/main)
 
 ## Usage
 
