@@ -9,8 +9,11 @@ jobs:
       - run:
           name: "Compile"
           command: "cargo build --release"
+      - run:
+          name: "Compress release folder"
+          command: "zip -r jaws.zip target/release"
       - store_artifacts:
-          path: target/release
+          path: jaws.zip
   test:
     docker:
       - image: circleci/rust:1.55
