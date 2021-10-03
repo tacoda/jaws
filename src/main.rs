@@ -90,13 +90,12 @@ async fn main() {
     match cli {
         Jaws::DynamoDb { cmd } => {
             match cmd {
-                _ => { jawslib::dynamodb::list_tables().await },
-                // DynamoDbSubCommand::ListTables => { dynamodb::list_tables() },
-                // DynamoDbSubCommand::CreateTable { name } => { dynamodb::create_table(name) },
-                // DynamoDbSubCommand::DeleteTable { name } => { dynamodb::delete_table(name) },
-                // DynamoDbSubCommand::PutItem { name, table_name } => { dynamodb::put_item(name, table_name ) },
-                // DynamoDbSubCommand::GetItem { name: _, table_name: _ } => { unimplemented!() },
-                // DynamoDbSubCommand::DeleteItem { name: _, table_name: _ } => { unimplemented!() },
+                DynamoDbSubCommand::ListTables => { jawslib::dynamodb::list_tables().await },
+                DynamoDbSubCommand::CreateTable { name } => { jawslib::dynamodb::create_table(name).await },
+                DynamoDbSubCommand::DeleteTable { name } => { jawslib::dynamodb::delete_table(name).await },
+                DynamoDbSubCommand::PutItem { name, table_name } => { jawslib::dynamodb::put_item(name, table_name ).await },
+                DynamoDbSubCommand::GetItem { name: _, table_name: _ } => { unimplemented!() },
+                DynamoDbSubCommand::DeleteItem { name: _, table_name: _ } => { unimplemented!() },
             }
         }
     }

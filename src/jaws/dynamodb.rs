@@ -1,8 +1,3 @@
-// #![cfg(feature = "dynamodb")]
-
-// // extern crate rusoto_core;
-// // extern crate rusoto_dynamodb;
-
 use rusoto_core::Region;
 use rusoto_dynamodb::*;
 use std::collections::HashMap;
@@ -43,12 +38,11 @@ pub async fn create_table(name: String) {
             key_type: String::from("HASH"),
         }],
         local_secondary_indexes: None,
-        provisioned_throughput: None,
+        provisioned_throughput: Some(ProvisionedThroughput {
+            read_capacity_units: 4,
+            write_capacity_units: 4,
+        }),
         sse_specification: None,
-        // ProvisionedThroughput {
-        //     read_capacity_units: 4,
-        //     write_capacity_units: 4,
-        // },
         stream_specification: None,
         table_name: name,
         tags: None
