@@ -1,6 +1,6 @@
-# 🦈 jaws
+# Jaws 🦈
 
-> A tool to manage AWS resources and run tasks
+> A tool to manage AWS resources and run tasks.
 
 [![CircleCI](https://circleci.com/gh/tacoda/jaws/tree/main.svg?style=svg)](https://circleci.com/gh/tacoda/jaws/tree/main)
 
@@ -12,24 +12,27 @@ Help
 jaws --help
 ```
 
-Usage
+Standard usage is:
 
-```
-jaws <SUBCOMMAND>
+```sh
+jaws <service> <command> [OPTIONS]
 ```
 
-Help with Services
+Use help for more documentation with services and commands:
 
-```
+```sh
 jaws dynamodb --help
-```
-
-Help with Commands
-
-```
 jaws dynamodb create-table --help
 ```
 
-Services and Commands
+
+Services and Commands currently implemented
 
 - `dynamodb`
+  - `list-tables`
+- `lambda`
+- `s3`
+
+| Service | Command |
+| --- | --- |
+| `dynamodb` | `list-tables` \\ test |
